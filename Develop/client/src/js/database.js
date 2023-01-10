@@ -1,37 +1,36 @@
 import { openDB } from 'idb';
 
 const initdb = async () =>
-// We are creating a new database named 'textEditorDB' which will be using version 1 of the database.
-  openDB('textEditor', 1, {
-    // Add our database schema if it has not already been initialized.
+  openDB('jate', 1, {
     upgrade(db) {
-      if (db.objectStoreNames.contains('textEditor')) {
-        console.log('textEditorDB database already exists');
+      if (db.objectStoreNames.contains('jate')) {
+        console.log('jate database already exists');
         return;
       }
-
-      // Create a new object store for the data and give it an key name of 'id' which needs to increment automatically.
-      db.createObjectStore('textEditor', { keyPath: 'id', autoIncrement: true });
-      console.log('textEditor database created');
+      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
+      console.log('jate database created');
     },
   });
 
-  export const putDb = async (content) => {
-    const textEditorDB = await openDB("textEditor", 1);
-    const tx = textEditorDB.transaction("textEditor", "readwrite");
-    const store = tx.objectStore("textEditor");
-    const request = store.put({ textEditor: content });
-    const result = await request;
-    console.log("Data saved to the database", result);
-  };
+export const putDb = async (content) => {
+  const jateDb = await openDB('jate', 1);
+  console.log(jateDb);
+  const jx = jateDb.transaction('jate', 'readwrite');
+  const store = jx.objectStore('jate');
+  const request = store.put({ jate: content });
+  const result = await request;
+  console.log('data saved to the database', result);
+}
 
-  export const getDb = async () => {
-    const textEditorDB = await openDB("textEditor", 1);
-    const tx = textEditorDB.transaction("textEditor", "readonly");
-    const store = tx.objectStore("textEditor");
-    const request = store.getAll();
-    const result = await request;
-    console.log(result);
-  };
+export const getDb = async () => {
+  const jateDb = await openDB('jate', 1);
+  console.log(jateDb);
+  const jx = jateDb.transaction('jate', 'readonly');
+  const store = jx.objectStore('jate');
+  const request = store.getAll();
+  const result = await request;
+  console.log('result.value', result);
+  return result;
+}
 
 initdb();
