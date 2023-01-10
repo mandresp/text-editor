@@ -28,7 +28,7 @@ You can use the text editor in the browser or download it by clicking the "Insta
 
 ## Deployment
 
-![Deployed Link](https://andres-text-editor.herokuapp.com/)
+[Deployed Link](https://andres-text-editor.herokuapp.com/)
 
 ## Credits
 
